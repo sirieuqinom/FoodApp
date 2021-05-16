@@ -6,7 +6,6 @@ import { currentUN, currentN, currentEM, currentPW, currentAD } from '../backend
 import home from '../styles/home';
 import { icons} from '../constants/index';
 import { FontAwesome, Ionicons, AntDesign } from '@expo/vector-icons';
-import Modal from "react-native-modal";
 
 
 function ProfileScreen(props) {
