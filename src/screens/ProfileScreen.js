@@ -8,7 +8,7 @@ import { icons} from '../constants/index';
 import { FontAwesome, Ionicons, AntDesign } from '@expo/vector-icons';
 
 
-function ProfileScreen(props) {
+function ProfileScreen({navigation}) {
     
     
     //admin
@@ -49,7 +49,7 @@ function ProfileScreen(props) {
         </View>
         </TouchableOpacity>
         
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
         <View style={{ flexDirection: 'column', height: 70, backgroundColor: '#2f3640'}}>
         <Text style ={{margin: 20 , color: '#f5f6fa', fontSize: 20, alignSelf: 'center'}}>Logout</Text> 
         </View>
