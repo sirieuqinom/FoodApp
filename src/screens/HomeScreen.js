@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, Text, TouchableOpacity, View, FlatList, SafeAreaView, } from 'react-native';
 import home from '../styles/home';
 import { COLORS, SIZES, FONTS, icons, images } from '../constants/index';
+import { backReturn } from '../backend/Verification';
 
 export default function HomeScreen({navigation}) {
     const initialCurrentLocation = {
@@ -317,6 +318,7 @@ export default function HomeScreen({navigation}) {
     const [selectedCategory, setSelectedCategory] = React.useState(null)
     const [restaurants, setRestaurants] = React.useState(restaurantData)
     const [currentLocation, setCurrentLocation] = React.useState(initialCurrentLocation)
+    useEffect((backReturn), []);
     function onSelectCategory(category) {
         let restaurant=restaurantData.filter(a=>a.categories.includes(category.id))
         setRestaurants(restaurantList)
