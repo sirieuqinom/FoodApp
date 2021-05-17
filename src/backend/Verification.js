@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Alert } from "react-native";
+import { View, Alert, BackHandler } from "react-native";
 import * as firebase from 'firebase';
 import "firebase/firestore";
 import { firebaseConfig } from './config';
@@ -45,7 +45,7 @@ const loginUser = (un, pw, navigation) => {
         console.log("Error getting documents: ", error);
     });
 
-    
+
 }
 
 
@@ -87,7 +87,7 @@ const registerUser = (n, em, un, pw, navigation) => {
     }).catch((error) => {
         console.log("Error getting document:", error);
     });
-          
+
 }
 
 // Create user faves
@@ -110,23 +110,56 @@ const getUserFave = (id) => {
     let faveC;
 
     db.collection(collectionName).doc(id).collection("favorites").get().then(query => {
-        if(query.size > 0){
+        if (query.size > 0) {
             // createFaves
             db.collection(collectionName).doc(id).collection("favorites").orderBy("faveCount", "desc").get().then(querySnapshot => {
                 querySnapshot.forEach((doc) => {
                     faveN = doc.get("name");
                     faveC = doc.get("faveCount");
-                    createFaves(faveN, faveC);
+                    createFaves(faveN, faveC); // turns favorites into a list
                 })
-            }) 
-        } else{
-            faveArray = [];
-            console.log("no fave")
+            })
+        } else {
+            faveArray = []; //no favorites
         }
     })
 }
 
-//const currentUser = currentDoc;
+// back button sign out
+const backAction = () => {
+    Alert.alert("Hold on!", "Are you sure you want to go back?", [
+        {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel"
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() }
+    ]);
+    return true;
+};
 
-export { loginUser, registerUser, getUserFave, createFaves, faveArray, currentID, currentUN, currentPW,
-    currentN, currentEM, currentAD };
+const backHandler = BackHandler.addEventListener(
+    "hardwareBackPress",
+    backAction
+);
+
+const backReturn = () => {
+    return () => backHandler.remove();
+}
+
+// signout or logout
+const clearValues = () => {
+    currentID = "";
+    currentUN = "";
+    currentPW = "";
+    currentN = "";
+    currentEM = "";
+    currentAD = "";
+    faveArray = [];
+
+}
+
+export {
+    loginUser, registerUser, getUserFave, backReturn, clearValues, faveArray, currentID, currentUN, currentPW,
+    currentN, currentEM, currentAD
+};
