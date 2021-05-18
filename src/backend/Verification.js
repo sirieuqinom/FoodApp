@@ -156,10 +156,40 @@ const clearValues = () => {
     currentEM = "";
     currentAD = "";
     faveArray = [];
+}
 
+// change password
+const changePW = (pw, newPw, rePw) => {
+    if (firebase.apps.length === 0) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.firestore();
+
+    if (pw != currentPW) {
+        Alert.alert("Error", "Incorrect Current Password", [{
+            text: "Cancel",
+            style: "cancel"
+        }])
+        
+    } 
+    if (newPw != rePw) {
+        Alert.alert("Error", "New Password Does Not Match Retyped Password", [{
+            text: "Cancel",
+            style: "cancel"
+        }])
+    }else {
+        currentPW = rePw;
+        db.collection(collectionName).doc(currentID).set({
+            regPassword: rePw
+        }, { merge: true })
+        Alert.alert("Process Complete", "Successful Password Change", [{
+            text: "Okay",
+            style: "cancel"
+        }])
+    }
 }
 
 export {
-    loginUser, registerUser, getUserFave, backReturn, clearValues, faveArray, currentID, currentUN, currentPW,
+    loginUser, registerUser, getUserFave, backReturn, clearValues, changePW, faveArray, currentID, currentUN, currentPW,
     currentN, currentEM, currentAD
 };
