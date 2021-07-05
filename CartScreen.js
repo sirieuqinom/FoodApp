@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Image, Text, TouchableOpacity, View, FlatList, SafeAreaView, Animated, StyleSheet, Alert } from 'react-native';
-import home from '../styles/home';
 import { COLORS, SIZES, FONTS, icons, images } from '../constants/index';
 import { initialCurrentLocation, categoryData, restaurantData } from '../backend/homeData';
 import { setOrders } from '../backend/Verification';
@@ -14,17 +13,17 @@ function CartScreen({ navigation, route }) {
     const [orderItems, setOrderItems] = React.useState([]);
 
     React.useEffect(() => {
-        let {item, currentLocation} = route.params;
+        let { item, currentLocation } = route.params;
 
         setRestaurant(item)
         setCurrentLocation(currentLocation)
     })
-    
+
     function editOrder(action, menuId, price, name) {
         let orderList = orderItems.slice()
         let item = orderList.filter(a => a.menuId == menuId)
-        if(action == "+") {
-            if(item.length > 0) {
+        if (action == "+") {
+            if (item.length > 0) {
                 let newQty = item[0].qty + 1
                 item[0].qty = newQty
                 item[0].total = item[0].qty * price
@@ -40,9 +39,9 @@ function CartScreen({ navigation, route }) {
             }
 
             setOrderItems(orderList)
-        } else if(action == "-") {
-            if(item.length > 0) {
-                if(item[0]?.qty > 0) {
+        } else if (action == "-") {
+            if (item.length > 0) {
+                if (item[0]?.qty > 0) {
                     let newQty = item[0].qty - 1
                     item[0].qty = newQty
                     item[0].total = newQty * price
@@ -58,7 +57,7 @@ function CartScreen({ navigation, route }) {
     function getOrderQty(menuId) {
         let orderItem = orderItems.filter(a => a.menuId == menuId)
 
-        if(orderItem.length > 0) {
+        if (orderItem.length > 0) {
             return orderItem[0].qty
         }
 
@@ -72,23 +71,23 @@ function CartScreen({ navigation, route }) {
 
     function sumOrder() {
         let total = orderItems.reduce((a, b) => a + (b.total || 0), 0)
-        
+
         return total.toFixed(2)
     }
 
     function renderHeader() {
         return (
-            <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity 
+            <View style={{ flexDirection: 'row' }}>
+                <TouchableOpacity
                     style={{
                         width: 50,
                         paddingLeft: SIZES.padding * 2,
                         justifyContent: 'center'
                     }}
                     onPress={() => navigation.goBack()}>
-                    
-                
-                    <Image 
+
+
+                    <Image
                         source={icons.back}
                         resizeMode="contain"
                         style={{
@@ -100,7 +99,7 @@ function CartScreen({ navigation, route }) {
 
                 <View
                     style={{
-                        flex:1,
+                        flex: 1,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
@@ -113,9 +112,9 @@ function CartScreen({ navigation, route }) {
                             paddingHorizontal: SIZES.padding * 3,
                             borderRadius: SIZES.radius,
                             backgroundColor: COLORS.gray
-                        }}    
+                        }}
                     >
-                        <Text style={{...FONTS.h3}}>{restaurant?.name}</Text>
+                        <Text style={{ ...FONTS.h3 }}>{restaurant?.name}</Text>
                     </View>
                 </View>
 
@@ -126,7 +125,7 @@ function CartScreen({ navigation, route }) {
                         justifyContent: 'center'
                     }}
                 >
-                    <Image 
+                    <Image
                         source={icons.list}
                         resizeMode="contain"
                         style={{
@@ -148,17 +147,17 @@ function CartScreen({ navigation, route }) {
                 snapToAlignment="center"
                 showsHorizontalScrollIndicator={false}
                 onScroll={Animated.event([
-                    {nativeEvent: {contentOffset: {x: scrollX}}}
-                ], {useNativeDriver: false})}
+                    { nativeEvent: { contentOffset: { x: scrollX } } }
+                ], { useNativeDriver: false })}
             >
                 {
                     restaurant?.menu.map((item, index) => (
                         <View
                             key={`menu-${index}`}
-                            style={{alignItems:'center'}}
+                            style={{ alignItems: 'center' }}
                         >
-                            <View style={{height: SIZES.height * 0.35}}>
-                                <Image 
+                            <View style={{ height: SIZES.height * 0.35 }}>
+                                <Image
                                     source={item.photo}
                                     resizeMode="cover"
                                     style={{
@@ -186,7 +185,7 @@ function CartScreen({ navigation, route }) {
                                         }}
                                         onPress={() => editOrder("-", item.menuId, item.price, item.name)}
                                     >
-                                        <Text style={{...FONTS.body1}}>-</Text>
+                                        <Text style={{ ...FONTS.body1 }}>-</Text>
                                     </TouchableOpacity>
 
                                     <View
@@ -197,9 +196,9 @@ function CartScreen({ navigation, route }) {
                                             justifyContent: 'center'
                                         }}
                                     >
-                                        <Text style={{...FONTS.h2}}>{getOrderQty(item.menuId)}</Text>
+                                        <Text style={{ ...FONTS.h2 }}>{getOrderQty(item.menuId)}</Text>
                                     </View>
-                                    
+
                                     <TouchableOpacity
                                         style={{
                                             width: 50,
@@ -211,7 +210,7 @@ function CartScreen({ navigation, route }) {
                                         }}
                                         onPress={() => editOrder("+", item.menuId, item.price, item.name)}
                                     >
-                                        <Text style={{...FONTS.body1}}>+</Text>
+                                        <Text style={{ ...FONTS.body1 }}>+</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -224,18 +223,18 @@ function CartScreen({ navigation, route }) {
                                     paddingHorizontal: SIZES.padding * 2
                                 }}
                             >
-                                <Text style={{marginVertical: 10, textAlign: 'center', ...FONTS.h2}}>{item.name} - {item.price.toFixed(2)}</Text>
-                                <Text style={{...FONTS.body3}}>{item.description}</Text>
+                                <Text style={{ marginVertical: 10, textAlign: 'center', ...FONTS.h2 }}>{item.name} - {item.price.toFixed(2)}</Text>
+                                <Text style={{ ...FONTS.body3 }}>{item.description}</Text>
                             </View>
 
-                                {/* Calories */}
+                            {/* Calories */}
                             <View
                                 style={{
                                     flexDirection: 'row',
                                     marginTop: 10
                                 }}
                             >
-                                <Image 
+                                <Image
                                     source={icons.fire}
                                     style={{
                                         width: 20,
@@ -244,7 +243,7 @@ function CartScreen({ navigation, route }) {
                                     }}
                                 />
 
-                                <Text style={{...FONTS.body3, color: COLORS.gray}}>{item.calories.toFixed(2)}</Text>
+                                <Text style={{ ...FONTS.body3, color: COLORS.gray }}>{item.calories.toFixed(2)}</Text>
                             </View>
                         </View>
                     ))
@@ -258,7 +257,7 @@ function CartScreen({ navigation, route }) {
         const dotPosition = Animated.divide(scrollX, SIZES.width)
 
         return (
-            <View style={{height: 30}}>
+            <View style={{ height: 30 }}>
                 <View
                     style={{
                         flexDirection: 'row',
@@ -285,7 +284,7 @@ function CartScreen({ navigation, route }) {
                         })
 
                         return (
-                            <Animated.View 
+                            <Animated.View
                                 key={`dot-${index}`}
                                 opacity={opacity}
                                 style={{
@@ -326,8 +325,8 @@ function CartScreen({ navigation, route }) {
                             borderBottomWidth: 1
                         }}
                     >
-                        <Text style={{...FONTS.h3}}>{getBasketItemCount()} Items in Cart</Text>
-                        <Text style={{...FONTS.h3}}>${sumOrder()}</Text>
+                        <Text style={{ ...FONTS.h3 }}>{getBasketItemCount()} Items in Cart</Text>
+                        <Text style={{ ...FONTS.h3 }}>${sumOrder()}</Text>
                     </View>
 
                     <View
@@ -352,10 +351,10 @@ function CartScreen({ navigation, route }) {
                                     tintColor: COLORS.gray
                                 }}
                             />
-                            <Text style={{marginLeft: SIZES.padding, ...FONTS.h4}}>Location</Text>
+                            <Text style={{ marginLeft: SIZES.padding, ...FONTS.h4 }}>Location</Text>
                         </View>
 
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={{ flexDirection: 'row' }}>
                             <Image
                                 source={icons.master_card}
                                 resizeMode="contain"
@@ -365,17 +364,17 @@ function CartScreen({ navigation, route }) {
                                     tintColor: COLORS.gray
                                 }}
                             />
-                            <Text style={{marginLeft: SIZES.padding, ...FONTS.h4}}>8888</Text>
+                            <Text style={{ marginLeft: SIZES.padding, ...FONTS.h4 }}>8888</Text>
                         </View>
                     </View>
-                    
+
                     {/* Order Button */}
                     <View
                         style={{
-                         padding: SIZES.padding * 2,
-                         alignItems: 'center',
-                         justidyContent: 'center'
-                     }}
+                            padding: SIZES.padding * 2,
+                            alignItems: 'center',
+                            justidyContent: 'center'
+                        }}
                     >
                         <TouchableOpacity
                             style={{
@@ -395,7 +394,7 @@ function CartScreen({ navigation, route }) {
                                 }
                             }])}
                         >
-                            <Text style={{color: COLORS.white, ...FONTS.h2}}>Order</Text>
+                            <Text style={{ color: COLORS.white, ...FONTS.h2 }}>Order</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -418,11 +417,11 @@ function CartScreen({ navigation, route }) {
     }
 
     return (
-      <SafeAreaView style={styles.container}>
-          {renderHeader()}
-          {renderFoodInfo()}
-          {renderOrder()}
-      </SafeAreaView>
+        <SafeAreaView style={styles.container}>
+            {renderHeader()}
+            {renderFoodInfo()}
+            {renderOrder()}
+        </SafeAreaView>
     )
 }
 

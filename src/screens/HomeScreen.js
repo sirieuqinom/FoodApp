@@ -4,7 +4,7 @@ import home from '../styles/home';
 import { COLORS, SIZES, FONTS, icons, images } from '../constants/index';
 import { backReturn } from '../backend/Verification';
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({ navigation }) {
     const initialCurrentLocation = {
         streetName: "Manila",
         gps: {
@@ -70,7 +70,7 @@ export default function HomeScreen({navigation}) {
     const restaurantData = [
         {
             id: 1,
-            name: "ByProgrammers Burger",
+            name: "Burger",
             rating: 4.8,
             categories: [5, 7],
             priceRating: affordable,
@@ -113,7 +113,7 @@ export default function HomeScreen({navigation}) {
         },
         {
             id: 2,
-            name: "ByProgrammers Pizza",
+            name: "Pizza",
             rating: 4.8,
             categories: [2, 4, 6],
             priceRating: expensive,
@@ -164,7 +164,7 @@ export default function HomeScreen({navigation}) {
         },
         {
             id: 3,
-            name: "ByProgrammers Hotdogs",
+            name: "Hotdogs",
             rating: 4.8,
             categories: [3],
             priceRating: expensive,
@@ -191,7 +191,7 @@ export default function HomeScreen({navigation}) {
         },
         {
             id: 4,
-            name: "ByProgrammers Sushi",
+            name: "Sushi",
             rating: 4.8,
             categories: [8],
             priceRating: expensive,
@@ -218,7 +218,7 @@ export default function HomeScreen({navigation}) {
         },
         {
             id: 5,
-            name: "ByProgrammers Cuisine",
+            name: "Cuisine",
             rating: 4.8,
             categories: [1, 2],
             priceRating: affordable,
@@ -271,7 +271,7 @@ export default function HomeScreen({navigation}) {
         {
 
             id: 6,
-            name: "ByProgrammers Dessets",
+            name: "Desserts",
             rating: 4.9,
             categories: [9, 10],
             priceRating: affordable,
@@ -320,26 +320,19 @@ export default function HomeScreen({navigation}) {
     const [currentLocation, setCurrentLocation] = React.useState(initialCurrentLocation)
     useEffect((backReturn), []);
     function onSelectCategory(category) {
-        let restaurant=restaurantData.filter(a=>a.categories.includes(category.id))
+        let restaurant = restaurantData.filter(a => a.categories.includes(category.id))
         setRestaurants(restaurantList)
         setSelectedCategory(category)
     }
     function getCategoryNameById(id) {
-        let category=categories.filter(a=>a.id == id)
-        if(category.length > 0)
+        let category = categories.filter(a => a.id == id)
+        if (category.length > 0)
             return category[0].name
         return ""
     }
     function renderHeader() {
-        return(
-            <View style={{flexDirection: 'row', height: 50, marginTop: 25, }}>
-                <TouchableOpacity
-                    style={{
-                        width: 50,
-                        paddingLeft: SIZES.padding *2,
-                        justifycontent: 'center',
-                    }}>
-                </TouchableOpacity>
+        return (
+            <View style={{ flexDirection: 'row', height: 50, marginTop: 25, }}>
                 <View
                     style={{
                         flex: 1,
@@ -355,46 +348,46 @@ export default function HomeScreen({navigation}) {
                             justifyContent: 'center',
                             borderRadius: SIZES.radius,
                         }}>
-                        <Text 
+                        <Text
                             style={{
                                 color: COLORS.white,
                                 ...FONTS.h3
-                                }}>{currentLocation.streetName}</Text>
+                            }}>{currentLocation.streetName}</Text>
                     </View>
                 </View>
                 <TouchableOpacity
                     style={{
                         width: 50,
-                        paddingRight: SIZES.padding*2,
+                        paddingRight: SIZES.padding * 2,
                         justifyContent: 'center',
                     }}>
                     <Image
                         source={icons.cart}
-                        resizeMode= 'contain'
+                        resizeMode='contain'
                         style={{
                             width: 30,
                             height: 30,
                             tintColor: COLORS.black,
-                        }}/>
+                        }} />
                 </TouchableOpacity>
             </View>
         )
     }
     function renderMainCategories() {
-        const renderItem=({item})=>{
-            return(
+        const renderItem = ({ item }) => {
+            return (
                 <TouchableOpacity
                     style={{
                         padding: SIZES.padding,
-                        paddingBottom: SIZES.padding*2,
-                        backgroundColor: (selectedCategory?.id==item.id) ? COLORS.white : COLORS.black,
+                        paddingBottom: SIZES.padding * 2,
+                        backgroundColor: (selectedCategory?.id == item.id) ? COLORS.white : COLORS.black,
                         borderRadius: SIZES.radius,
                         alignItems: 'center',
                         justifyContent: 'center',
                         marginRight: SIZES.padding,
                         ...home.shadow
                     }}
-                    onPress={()=>onSelectCategory(item)}>
+                    onPress={() => onSelectCategory(item)}>
                     <View
                         style={{
                             width: 50,
@@ -402,7 +395,7 @@ export default function HomeScreen({navigation}) {
                             borderRadius: 25,
                             alignItems: 'center',
                             justifyContent: 'center',
-                            backgroundColor: (onSelectCategory?.id==item.id) ? COLORS.white : COLORS.white,
+                            backgroundColor: (onSelectCategory?.id == item.id) ? COLORS.white : COLORS.white,
                         }}>
                         <Image
                             source={item.icon}
@@ -410,44 +403,44 @@ export default function HomeScreen({navigation}) {
                             style={{
                                 width: 30,
                                 height: 30,
-                            }}/>
+                            }} />
                     </View>
                     <Text
                         style={{
                             marginTop: SIZES.padding,
-                            color: (selectedCategory?.id==item.id) ? COLORS.black : COLORS.white,
+                            color: (selectedCategory?.id == item.id) ? COLORS.black : COLORS.white,
                             ...FONTS.body5
-                        }}> 
+                        }}>
                         {item.name}
                     </Text>
                 </TouchableOpacity>
             )
         }
-        return(
-            <View style={{padding: SIZES.padding *2,}}>
-                <Text style={{...FONTS.h1}}>Main</Text>
-                <Text style={{...FONTS.h1}}>Categories</Text>
+        return (
+            <View style={{ padding: SIZES.padding * 2, }}>
+                <Text style={{ ...FONTS.h1 }}>Main</Text>
+                <Text style={{ ...FONTS.h1 }}>Categories</Text>
                 <FlatList
                     data={categories}
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    keyExtractor={item=>`${item.id}`}
+                    keyExtractor={item => `${item.id}`}
                     renderItem={renderItem}
-                    contentContainerStyle={{paddingVertical: SIZES.padding*2}}>
+                    contentContainerStyle={{ paddingVertical: SIZES.padding * 2 }}>
                 </FlatList>
             </View>
         )
     }
     function renderRestaurantList() {
-        const renderItem=({item})=> (
-            <TouchableOpacity 
-                style={{marginBottom: SIZES.padding*2}}
-                onPress={()=>navigation.navigate('Cart', {
+        const renderItem = ({ item }) => (
+            <TouchableOpacity
+                style={{ marginBottom: SIZES.padding * 2 }}
+                onPress={() => navigation.navigate('Cart', {
                     item,
                     currentLocation,
                 })}>
                 <View
-                    style={{marginBottom: SIZES.padding}}>
+                    style={{ marginBottom: SIZES.padding }}>
                 </View>
                 <View>
                     <Image
@@ -457,13 +450,13 @@ export default function HomeScreen({navigation}) {
                             width: '100%',
                             height: 200,
                             borderRadius: SIZES.radius
-                        }}/>
+                        }} />
                     <View
                         style={{
                             position: 'absolute',
                             bottom: 0,
                             height: 50,
-                            width: SIZES.width*0.3,
+                            width: SIZES.width * 0.3,
                             backgroundColor: COLORS.white,
                             borderTopRightRadius: SIZES.radius,
                             borderBottomLeftRadius: SIZES.radius,
@@ -472,13 +465,13 @@ export default function HomeScreen({navigation}) {
                             ...home.shadow
                         }}>
                         <Text
-                            style={{...FONTS.h4}}>
+                            style={{ ...FONTS.h4 }}>
                             {item.duration}
                         </Text>
                     </View>
                 </View>
                 <Text
-                    style={{...FONTS.body2}}>
+                    style={{ ...FONTS.body2 }}>
                     {item.name}
                 </Text>
                 <View
@@ -493,21 +486,23 @@ export default function HomeScreen({navigation}) {
                             width: 20,
                             tintColor: COLORS.primary,
                             marginRight: 10,
-                        }}/>
-                    <Text style={{...FONTS.body3}}>{item.rating}</Text>
+                        }} />
+                    <Text style={{ ...FONTS.body3 }}>{item.rating}</Text>
                     <View style={{
                         flexDirection: 'row',
-                        marginLeft: 10,}}>
+                        marginLeft: 10,
+                    }}>
                         {
-                            item.categories.map((categoryId)=> {
-                                return(
+                            item.categories.map((categoryId) => {
+                                return (
                                     <View
-                                        style={{flexDirection: 'row',}}
+                                        style={{ flexDirection: 'row', }}
                                         key={categoryId}>
-                                        <Text style={{...FONTS.body3}}>{getCategoryNameById(categoryId)}</Text>
+                                        <Text style={{ ...FONTS.body3 }}>{getCategoryNameById(categoryId)}</Text>
                                         <Text style={{
                                             ...FONTS.h3,
-                                            color: COLORS.gray,}}>
+                                            color: COLORS.gray,
+                                        }}>
                                             .
                                         </Text>
                                     </View>
@@ -515,12 +510,12 @@ export default function HomeScreen({navigation}) {
                             })
                         }
                         {
-                            [1, 2, 3].map((priceRating)=>(
+                            [1, 2, 3].map((priceRating) => (
                                 <Text
                                     key={priceRating}
                                     style={{
                                         ...FONTS.body3,
-                                        color: (priceRating<=item.priceRating) ? COLORS.black : COLORS.gray
+                                        color: (priceRating <= item.priceRating) ? COLORS.black : COLORS.gray
                                     }}>$</Text>
                             ))
                         }
@@ -528,15 +523,15 @@ export default function HomeScreen({navigation}) {
                 </View>
             </TouchableOpacity>
         )
-        return(
+        return (
             <FlatList
                 data={restaurants}
-                keyExtractor={item=>`${item.id}`}
+                keyExtractor={item => `${item.id}`}
                 renderItem={renderItem}
                 contentContainerStyle={{
-                    paddingHorizontal: SIZES.padding*2,
+                    paddingHorizontal: SIZES.padding * 2,
                     paddingBottom: 30,
-                }}/>
+                }} />
         )
     }
 
