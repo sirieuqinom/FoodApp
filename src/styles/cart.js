@@ -1,11 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { COLORS, SIZES } from '../constants/index';
 
-const home = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.white
-    },
+const cart = StyleSheet.create({
     shadow: {
         shadowColor: "#000",
         shadowOffset: {
@@ -18,4 +14,4 @@ const home = StyleSheet.create({
     }
 })
 
-export default home;
+export default cart;

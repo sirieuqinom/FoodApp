@@ -75,7 +75,7 @@ export default function CartScreen({ navigation, route }) {
 
     function renderHeader() {
         return (
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', height: 50, marginTop: 25, marginBottom: 25, }}>
                 <TouchableOpacity
                     style={{
                         width: 50,
@@ -103,15 +103,16 @@ export default function CartScreen({ navigation, route }) {
                 >
                     <View
                         style={{
-                            height: 50,
+                            width: '70%',
+                            height: '100%',
                             alignItems: 'center',
                             justifyContent: 'center',
                             paddingHorizontal: SIZES.padding * 3,
                             borderRadius: SIZES.radius,
-                            backgroundColor: COLORS.gray
+                            backgroundColor: COLORS.black
                         }}
                     >
-                        <Text style={{ ...FONTS.h3 }}>{restaurant?.name}</Text>
+                        <Text style={{ ...FONTS.h3, color: COLORS.white, }}>{restaurant?.name}</Text>
                     </View>
                 </View>
 
@@ -151,15 +152,17 @@ export default function CartScreen({ navigation, route }) {
                     restaurant?.menu.map((item, index) => (
                         <View
                             key={`menu-${index}`}
-                            style={{ alignItems: 'center' }}
+                            style={{ alignItems: 'center', }}
                         >
-                            <View style={{ height: SIZES.height * 0.35 }}>
+                            <View
+                                style={{ height: SIZES.height * 0.35, }}>
                                 <Image
                                     source={item.photo}
                                     resizeMode="cover"
                                     style={{
                                         width: SIZES.width,
-                                        height: "100%"
+                                        height: "100%",
+                                        borderRadius: 200,
                                     }}
                                 />
                                 <View
@@ -175,39 +178,40 @@ export default function CartScreen({ navigation, route }) {
                                     <TouchableOpacity
                                         style={{
                                             width: 50,
-                                            backgroundColor: COLORS.white,
+                                            backgroundColor: COLORS.black,
+                                            alignItems: 'center',
                                             justifyContent: 'center',
                                             borderTopLeftRadius: 25,
-                                            borderBottomLeftRadius: 25
+                                            borderBottomLeftRadius: 25,
                                         }}
                                         onPress={() => editOrder("-", item.menuId, item.price, item.name)}
                                     >
-                                        <Text style={{ ...FONTS.body1 }}>-</Text>
+                                        <Text style={{ ...FONTS.body1, color: COLORS.white, }}>-</Text>
                                     </TouchableOpacity>
 
                                     <View
                                         style={{
                                             width: 50,
-                                            backgroundColor: COLORS.white,
+                                            backgroundColor: COLORS.black,
                                             alignItems: 'center',
                                             justifyContent: 'center'
                                         }}
                                     >
-                                        <Text style={{ ...FONTS.h2 }}>{getOrderQty(item.menuId)}</Text>
+                                        <Text style={{ ...FONTS.h2, color: COLORS.white }}>{getOrderQty(item.menuId)}</Text>
                                     </View>
 
                                     <TouchableOpacity
                                         style={{
                                             width: 50,
-                                            backgroundColor: COLORS.white,
+                                            backgroundColor: COLORS.black,
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             borderTopRightRadius: 25,
-                                            borderBottomRightRadius: 25
+                                            borderBottomRightRadius: 25,
                                         }}
                                         onPress={() => editOrder("+", item.menuId, item.price, item.name)}
                                     >
-                                        <Text style={{ ...FONTS.body1 }}>+</Text>
+                                        <Text style={{ ...FONTS.body1, color: COLORS.white, }}>+</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -276,7 +280,7 @@ export default function CartScreen({ navigation, route }) {
                         })
                         const dotColor = dotPosition.interpolate({
                             inputRange: [index - 1, index, index + 1],
-                            outputRange: [COLORS.gray, COLORS.primary, COLORS.gray],
+                            outputRange: [COLORS.black, COLORS.black, COLORS.black],
                             extrapolate: 'clamp'
                         })
 
@@ -345,7 +349,7 @@ export default function CartScreen({ navigation, route }) {
                                 style={{
                                     width: 20,
                                     height: 20,
-                                    tintColor: COLORS.gray
+                                    tintColor: COLORS.black
                                 }}
                             />
                             <Text style={{ marginLeft: SIZES.padding, ...FONTS.h4 }}>Location</Text>
@@ -358,7 +362,7 @@ export default function CartScreen({ navigation, route }) {
                                 style={{
                                     width: 20,
                                     height: 20,
-                                    tintColor: COLORS.gray
+                                    tintColor: COLORS.black
                                 }}
                             />
                             <Text style={{ marginLeft: SIZES.padding, ...FONTS.h4 }}>8888</Text>
@@ -377,17 +381,17 @@ export default function CartScreen({ navigation, route }) {
                             style={{
                                 width: SIZES.width * 0.9,
                                 padding: SIZES.padding,
-                                backgroundColor: COLORS.primary,
+                                backgroundColor: COLORS.black,
                                 alignItems: 'center',
                                 borderRadius: SIZES.radius
                             }}
                             onPress={() => Alert.alert("Order Status", "Order Sent", [{
                                 text: "Done",
-                                style: "cancel",
+                                style: "Cancel",
                                 onPress: () => {
-                                    setOrders(orderItems)
+                                    //setOrders(orderItems)
                                     navigation.goBack()
-                                    setOrderItems(orderItems.splice(0, orderItems.length))
+                                    //setOrderItems(orderItems.splice(0, orderItems.length))
                                 }
                             }])}
                         >
@@ -425,6 +429,6 @@ export default function CartScreen({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.gray,
+        backgroundColor: COLORS.white,
     }
 })

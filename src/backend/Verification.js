@@ -170,14 +170,14 @@ const changePW = (pw, newPw, rePw) => {
             text: "Cancel",
             style: "cancel"
         }])
-        
-    } 
+
+    }
     if (newPw != rePw) {
         Alert.alert("Error", "New Password Does Not Match Retyped Password", [{
             text: "Cancel",
             style: "cancel"
         }])
-    }else {
+    } else {
         currentPW = rePw;
         db.collection(collectionName).doc(currentID).set({
             regPassword: rePw
