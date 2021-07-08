@@ -4,7 +4,7 @@ import { userProfile } from '../backend/userProfile';
 import { COLORS, SIZES, FONTS, icons, images } from '../constants/index';
 import home from '../styles/home';
 import { faveArray } from '../backend/Verification'
-//import { currentFave } from '../backend/userProfile';
+import { currentFave } from '../backend/userProfile';
 import { render } from 'react-dom';
 
 function FavoriteScreen(props) {
