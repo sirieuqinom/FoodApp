@@ -387,11 +387,10 @@ export default function CartScreen({ navigation, route }) {
                             }}
                             onPress={() => Alert.alert("Order Status", "Order Sent", [{
                                 text: "Done",
-                                style: "Cancel",
                                 onPress: () => {
-                                    //setOrders(orderItems)
+                                    setOrders(orderItems)
+                                    setOrderItems(orderItems.splice(0, orderItems.length))
                                     navigation.goBack()
-                                    //setOrderItems(orderItems.splice(0, orderItems.length))
                                 }
                             }])}
                         >
